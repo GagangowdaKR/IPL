@@ -1,0 +1,36 @@
+.match-list-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .horizontal-scroll {
+    display: flex;
+    gap: 20px; /* Space between cards */
+    padding: 10px;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none; 
+  }
+  
+  .horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+  }
+  
+  /* Adjust card size */
+  .match-card {
+    width: 20%; /* Reduced width by 20% */
+    max-width: 280px; /* Limit card size */
+    max-height: 400px;
+    flex-shrink: 0; /* Prevent shrinking */
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Hover effect for card */
+  .match-card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+  }
+  

@@ -1,0 +1,54 @@
+.match-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 10px;
+    width: 300px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .match-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .match-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+  
+  .match-details {
+    padding: 10px;
+  }
+  
+  .match-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .match-location,
+  .match-date,
+  .match-time,
+  .match-number {
+    font-size: 14px;
+    color: #555555;
+    margin: 5px 0;
+  }
+  .ListHead{
+    color: #000000;
+    background-color: #f04d24;
+    /* border-radius: 10px 1px 1px; */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    width: fit-content;
+    margin-top: 6px;
+    margin-bottom: 1px;
+  }
+  .ListHead, .h2{
+    padding: 6px;
+  }

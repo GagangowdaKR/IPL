@@ -1,0 +1,135 @@
+/* General page styling */
+.register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    height: 100vh;
+    background: linear-gradient(135deg, #1c1c1c, #262626);
+    color: white;
+    font-family: 'Arial', sans-serif;
+  }
+  /* Registration form container */
+  .register-form {
+    background: rgba(255, 255, 255, 0.15); /* Transparent background */
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    color: #fff;
+    padding:40px;
+    border-radius: 12px;
+    width: 80%; /* Adjust width to fit within 80% */
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Form Title */
+  .register-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    color: #ff5722;
+    text-align: center;
+  }
+  
+  /* Form grid layout */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .form-control {
+    width: 90%;
+    padding: 8px;
+    margin-left: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    color: #ff5722;
+  }
+  
+  .form-control:focus {
+    border-color: #ff5722;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 87, 34, 0.5);
+  }
+  
+  /* Full-width elements */
+  .full-width {
+    grid-column: span 2; /* Occupies both columns */
+  }
+  
+  /* Gender and checkbox styling */
+  .radio-inline {
+    font-size: 14px;
+    font-weight: normal;
+    color: #fff;
+  }
+  
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: #ff5722;
+  }
+  
+  /* Submit button */
+  .btn-primary {
+    background: #ff5722;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    margin-top: 10px;
+  }
+  
+  .btn-primary:hover {
+    background: #e64a19;
+  }
+  
+  /* Success message */
+  .alert-success {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(0, 128, 0, 0.2);
+    border: 1px solid green;
+    color: #00ff00;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .success-message {
+    text-align: center;
+    color: green;
+    font-size: 1.2em;
+    margin-top: 20px;
+    font-weight: bold;
+    width: 100%;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .register-form {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .form-grid {
+      grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+  }
+  

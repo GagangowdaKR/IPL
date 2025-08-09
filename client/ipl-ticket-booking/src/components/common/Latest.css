@@ -1,0 +1,48 @@
+/* Latest.css */
+
+.marquee-container {
+    background-color: #cac1c1;
+    padding: 8px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+  
+  .marquee-text {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 12s linear infinite;
+  }
+  
+  .marquee-text.paused {
+    animation-play-state: paused;
+  }
+  
+  .marquee-link {
+    color: #f04d24;
+    text-decoration: none; /* Remove underline by default */
+    padding: 0 10px;
+    font-weight: normal; /* Regular weight by default */
+  }
+  
+  .marquee-link:hover {
+    text-decoration: none; /* Ensure underline is not added */
+    font-weight: bold; /* Make it bold on hover */
+  }
+  
+  .marquee-text span {
+    color: white;
+    padding: 0 5px;
+  }
+  
+  /* Keyframes for scrolling */
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  

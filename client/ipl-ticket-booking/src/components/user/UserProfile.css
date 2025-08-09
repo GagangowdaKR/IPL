@@ -1,0 +1,122 @@
+/* General Styles */
+.user-profile-container {
+    font-family: "Roboto", sans-serif;
+    color: #1c1c1c;
+    background: #f4f4f9; /* Softer background for better contrast */
+    padding: 5px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #101010; /* Darker, modern shade */
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #ffffff;
+}
+
+.navbar-title {
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.navbar-title i {
+    color: #f04d24;
+}
+
+.nav-link {
+    color: #f04d24; /* Vibrant accent color */
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+    color: #ffd700; /* Lighter accent on hover */
+}
+
+/* Profile Card */
+.profile-content {
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.profile-card {
+    background: #ffffff; /* Clean white card */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+}
+
+.profile-photo {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.photo-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #f04d24; /* Red accent for border */
+}
+
+.user-name {
+    text-align: center;
+    font-size: 24px;
+    color: #f04d24; /* Same red accent for consistency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.user-title {
+    text-align: center;
+    font-size: 16px;
+    color: #333; /* Neutral tone for the subtitle */
+    margin-bottom: 20px;
+}
+
+/* Profile Details */
+.details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.details-item {
+    padding: 10px;
+    background: #f7f9fc; /* Soft blue-gray background */
+    border: 1px solid #cfd8dc; /* Light border for definition */
+    border-radius: 5px;
+}
+
+.details-item label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+    color: #1c1c1c; /* Dark text for readability */
+}
+
+.details-item span {
+    color: #666; /* Subdued gray for details */
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    font-size: 16px;
+    color: #777; /* Neutral gray for loading text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}

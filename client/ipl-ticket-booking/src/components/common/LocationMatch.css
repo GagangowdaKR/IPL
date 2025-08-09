@@ -1,0 +1,67 @@
+/* LocationMatch.css */
+
+.location-match {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .location-match h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .match-card-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px; /* Space between cards */
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  }
+  
+  .match-card-container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+  }
+  
+  /* MatchCard styling (adjust as needed) */
+  .match-card {
+    flex: 0 0 auto; /* Prevent cards from shrinking */
+    width: 250px;
+    height: 300px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: transform 0.2s;
+  }
+  
+  .match-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .match-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .match-card .content {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .match-card .content h3 {
+    font-size: 1.1rem;
+    margin: 10px 0;
+  }
+  
+  .match-card .content p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
