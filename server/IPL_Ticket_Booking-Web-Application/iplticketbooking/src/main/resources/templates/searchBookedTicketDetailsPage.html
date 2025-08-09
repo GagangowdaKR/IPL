@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Booked Ticket Details</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      body{
+          background-color: #c7ffd853;
+      }
+      </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <center>
+            <br />
+            <br />
+            <h3>Provide Match Details to View the Tickets Booked</h3>
+          </center>
+          <form id="ticketSearchForm">
+            <div class="form-group">
+              <label for="matchId">Match ID:</label>
+              <input type="text" class="form-control" id="matchId" required />
+            </div>
+            <div class="form-group">
+              <label for="from">Location:</label>
+              <div class="dropdown">
+                <button
+                  class="btn btn-default dropdown-toggle"
+                  type="button"
+                  id="LocationDropdown"
+                  data-toggle="dropdown"
+                >
+                  Select Location
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="LocationDropdown">
+                  <li><a href="#" class="fromLocation">Chennai</a></li>
+                  <li><a href="#" class="fromLocation">Bangalore</a></li>
+                  <li><a href="#" class="fromLocation">Delhi</a></li>
+                  <li><a href="#" class="fromLocation">Mumbai</a></li>
+                  <li><a href="#" class="fromLocation">Kerala</a></li>
+                </ul>
+              </div>
+            </div>
+            <!--  -->
+            <div class="form-group">
+              <label for="date">Date (DD/MM/YY):</label>
+              <input type="date" class="form-control" id="date" required />
+            </div>
+            <div class="form-group">
+              <label for="time">Time (HH:MM)</label>
+              <input
+                type="time"
+                class="form-control"
+                id="time"
+                name="time"
+                required
+              />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary btn-block">
+              View Details
+            </button>
+          </form>
+          <br />
+          <div id="ticketDetails"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        let selectedLocation = "";
+        $(".fromLocation").click(function () {
+          selectedLocation = $(this).text();
+          $("#LocationDropdown").html(
+            selectedLocation + ' <span class="caret"></span>'
+          );
+        });
+      });
+
+      $("#ticketSearchForm").on("submit", function (event) {
+        event.preventDefault();
+        const matchId = $("#matchId").val();
+        const location = $("#LocationDropdown").text().trim();
+        const to = $("#toDropdown").text().trim();
+        if(location==="Select Location"){
+          alert("Please select the Location to proceed");
+          return;
+        }
+        window.location.href = "/viewBookedTicket?matchId=" + matchId;
+      });
+    </script>
+  </body>
+</html>

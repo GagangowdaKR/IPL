@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Register</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      .vh-100 {
+        height: 100vh;
+      }
+      .h-custom {
+        height: calc(100% - 73px);
+      }
+      .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .image img {
+        width: 100%;
+        max-width: 450px;
+        height: 434px;
+      }
+
+      body {
+        background-image: url("https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+      }
+      .btn-block {
+        display: block;
+        width: 78%;
+        margin-left: 64px;
+      }
+      .form-group {
+        margin-bottom: 15px;
+        margin-left: 34px;
+        margin-right: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="vh-100">
+      <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-md-6 col-lg-6 col-xl-4">
+            <form id="registerForm" class="data-section">
+              <div class="data-form">
+                <div class="form-group">
+                  <h2 class="fw-bold mb-6">Admin Register</h2>
+                  <br />
+                  <label for="username">Username:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="firstName">First Name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstName"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastName"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="aadhar">Aadhar Card Number:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="aadhar"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email ID:</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="mobile">Mobile Number:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="mobile"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="address">Address:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="pincode">Pincode:</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="pincode"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="city">City:</label>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-default dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"
+                      id="cityButton"
+                    >
+                      City <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" id="cityDropdown">
+                      <li><a href="#" class="city">Chennai</a></li>
+                      <li><a href="#" class="city">Bangalore</a></li>
+                      <li><a href="#" class="city">Delhi</a></li>
+                      <li><a href="#" class="city">Mumbai</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="state">State:</label>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-default dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"
+                      id="stateButton"
+                    >
+                      State <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" id="stateDropdown">
+                      <li><a href="#" class="state">Tamil Nadu</a></li>
+                      <li><a href="#" class="state">Karnataka</a></li>
+                      <li><a href="#" class="state">New Delhi</a></li>
+                      <li><a href="#" class="state">Maharastra</a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="Male"
+                      checked
+                    />Male
+                  </label>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label class="radio-inline">
+                    <input type="radio" name="gender" value="Female" />Female
+                  </label>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <label class="radio-inline">
+                    <input
+                      type="radio"
+                      name="gender"
+                      value="Transgender"
+                    />Transgender
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="password">Password:</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="confirmPassword">Confirm Password:</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="confirmPassword"
+                    required
+                  />
+                </div>
+                <div class="checkbox form-group">
+                  <label>
+                    <input type="checkbox" id="confirm" />Please confirm the
+                    above details are true to your knowledge
+                  </label>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary btn-block">
+                  Register
+                </button>
+              </div>
+            </form>
+            <br />
+            <div
+              class="alert alert-success"
+              id="successAlert"
+              style="display: none"
+            >
+              <strong>Success!</strong> Registration completed successfully
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      $(document).ready(function () {
+        let selectedCity = "";
+        let selectedState = "";
+
+        $(".city").click(function () {
+          selectedCity = $(this).text();
+          $("#cityButton").html(selectedCity + ' <span class="caret"></span>');
+        });
+
+        $(".state").click(function () {
+          selectedState = $(this).text();
+          $("#stateButton").html(
+            selectedState + ' <span class="caret"></span>'
+          );
+        });
+
+        $("#registerForm").submit(function (event) {
+          event.preventDefault();
+
+          if (!selectedCity || !selectedState) {
+            alert("Please select both the city and State");
+            return;
+          }
+          const data = {
+            username: $("#username").val(),
+            firstName: $("#firstName").val(),
+            lastName: $("#lastName").val(),
+            aadhar: $("#aadhar").val(),
+            email: $("#email").val(),
+            mobileNumber: $("#mobile").val(),
+            address: $("#address").val(),
+            pincode: $("#pincode").val(),
+            city: selectedCity,
+            state: selectedState,
+            gender: $('input[name="gender"]:checked').val(),
+            password: $("#password").val(),
+            confirmPassword: $("#confirmPassword").val(),
+            confirm: $("#confirm").is(":checked"),
+          };
+
+          const queryString = $.param(data);
+
+          $.ajax({
+            url: "/api/admin-register?" + queryString,
+            type: "GET",
+            success: function (response) {
+              if (response.status == 400) {
+                alert("Registration failed: " + response.message);
+              } else {
+                $("#successAlert").show();
+                window.location.href = "/adminLogin";
+              }
+            },
+            error: function (error) {
+              alert("Registration failed: " + error.responseText);
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

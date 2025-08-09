@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; font-src 'self' https: data:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net/;"
+    />
+    <title>Audience Details</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      body {
+        background-color: #eeeeee;
+      }
+
+      .gradient-custom-2 {
+        /* fallback for old browsers */
+        background: #fccb90;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(
+          to right,
+          #ee7724,
+          #d8363a,
+          #dd3675,
+          #b44593
+        );
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(
+          to right,
+          #ee7724,
+          #d8363a,
+          #dd3675,
+          #b44593
+        );
+      }
+
+      @media (min-width: 768px) {
+        .gradient-form {
+          height: 100vh !important;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .gradient-custom-2 {
+          border-top-right-radius: 0.3rem;
+          border-bottom-right-radius: 0.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="h-100 gradient-form">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-xl-10">
+            <div class="card rounded-3 text-black">
+              <div class="row g-0">
+                <div class="col-lg-6">
+                  <div class="card-body p-md-5 mx-md-4">
+                    <div class="text-center">
+                      <img
+                        src="cricket.jpg"
+                        style="width: 185px;"
+                        alt="logo"
+                      />
+                      <h4 class="mt-1 mb-5 pb-1">
+                        You are in the Summary Page
+                      </h4>
+                    </div>
+
+                    <h2>Audience Details</h2>
+                    <div id="class-summary"></div>
+                    <form id="audience-form">
+                      <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="mobile-number">Mobile Number:</label>
+                        <input
+                          type="tel"
+                          class="form-control"
+                          id="mobile-number"
+                          required
+                        />
+                      </div>
+                      <div id="audience-details-container"></div>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        onclick="handleSubmit()"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                  <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                    <h3 class="mb-4" >Book, Cheer, Repeat Live the IPL Fever</h3>
+                    <p class="mb-0" style="font-size: larger;">
+                      May your favorite teams play their hearts out, and may the best team take home the trophy. Enjoy the thrill, the excitement, and the spirit of cricket at its finest!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let audienceCount = 1;
+      const audiences = [];
+
+      function insertAudienceComponent(classType) {
+        const audienceComponent = document.createElement("div");
+        audienceComponent.innerHTML = `
+                <div class="audience-details" data-class="${classType}">
+                    <hr />
+                    <h4>Audience Details (${audienceCount}) - Class ${classType}</h4>
+                    <div class="form-group">
+                        <label for="audience-name-${audienceCount}">Audience Name:</label>
+                        <input type="text" class="form-control" id="audience-name-${audienceCount}" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="age-${audienceCount}">Age:</label>
+                        <input type="number" class="form-control" id="age-${audienceCount}" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="gender-group-${audienceCount}">Gender</label>
+                        <div id="gender-group-${audienceCount}">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender-${audienceCount}" id="male-${audienceCount}" value="male" checked>
+                                <label class="form-check-label" for="male-${audienceCount}">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender-${audienceCount}" id="female-${audienceCount}" value="female">
+                            <label class="form-check-label" for="female-${audienceCount}">Female</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="gender-${audienceCount}" id="transgender-${audienceCount}" value="transgender">
+                            <label class="form-check-label" for="transgender-${audienceCount}">Transgender</label>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+        const audienceDetailsContainer = document.querySelector(
+          "#audience-details-container"
+        );
+        audienceDetailsContainer.appendChild(audienceComponent);
+        audiences.push(audienceComponent);
+        audienceCount++;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const bookedSeatsByClass = JSON.parse(
+          decodeURIComponent(urlParams.get("bookedSeatsByClass"))
+        );
+
+        let classSummary = "<ul>";
+        Object.entries(bookedSeatsByClass).forEach(([classType, seats]) => {
+          if (seats.length > 0) {
+            classSummary += `
+              <li>
+                Class ${classType}: ${seats.length} Audience(s)
+              </li>
+            `;
+            seats.forEach(() => {
+              insertAudienceComponent(classType);
+            });
+          }
+        });
+        classSummary += "</ul>";
+        document.getElementById("class-summary").innerHTML = classSummary;
+      });
+
+      function getAudienceDetails() {
+        const audienceDetails = [];
+        audiences.forEach((audience, index) => {
+          const audienceName = audience.querySelector(
+            `#audience-name-${index + 1}`
+          ).value;
+          const age = audience.querySelector(`#age-${index + 1}`).value;
+          const gender = audience.querySelector(
+            `input[name="gender-${index + 1}"]:checked`
+          ).value;
+          const classType =
+            audience.querySelector(".audience-details").dataset.class;
+
+          audienceDetails.push({
+            audienceName,
+            age,
+            gender,
+            classType,
+          });
+        });
+        console.log(audienceDetails);
+        return audienceDetails;
+      }
+
+      function handleSubmit() {
+        const email = document.getElementById("email").value;
+        const mobileNumber = document.getElementById("mobile-number").value;
+        const audienceDetails = getAudienceDetails();
+        const searchParams = new URLSearchParams(window.location.search);
+        const bookedSeatsByClass = searchParams.get("bookedSeatsByClass");
+        const matchId = searchParams.get("matchId");
+
+        if(!email || !mobileNumber){
+          alert("Please Fill the personal details");
+          return;
+        }
+        for(const audience of audienceDetails){
+          if(!audience.audienceName || !audience.age || !audience.gender){
+            alert("Please fill out all the audience details");
+            return;
+          }
+        }
+        const queryString = $.param({
+          matchId: matchId,
+          email: email,
+          audienceMobileNumber: mobileNumber,
+          audienceDetails: JSON.stringify(audienceDetails),
+          bookedSeatsByClass: bookedSeatsByClass,
+        });
+        window.location.href = `payment?${queryString}`;
+      }
+
+    </script>
+
+  </body>
+</html>

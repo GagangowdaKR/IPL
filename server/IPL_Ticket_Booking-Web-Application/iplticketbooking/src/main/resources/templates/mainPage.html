@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Book IPL Ticket</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .background {
+            background-image: url('/ground.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: left;
+            position: relative;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            max-width: 1200px;
+        }
+        .card-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: center;
+            margin-right: 95px;
+            transition: transform 0.3s ease;
+        }
+        .card-container:hover {
+            transform: translateY(-5px);
+        }
+        .card-container h2 {
+            margin-top: 0;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .card-container button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        .card-container .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .card-container .btn-primary:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        .card-container .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .card-container .btn-success:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        .card-container .btn-warning {
+            background: #ffc107;
+            color: #333;
+        }
+        .card-container .btn-warning:hover {
+            background: #e0a800;
+            transform: scale(1.05);
+        }
+        .text-container {
+            max-width: 500px;
+        }
+        .text-container h1 {
+            font-size: 35px;
+            margin: 0;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .text-container p {
+            font-size: 25px;
+            line-height: 1.6;
+            margin-top: 20px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            text-align: justify;
+        }
+        .footer
+        {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: rgb(23, 70, 23);
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="background">
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="card-container">
+                <a th:href="@{/adminLogin}"><button class="btn btn-primary"><i class="fas fa-user-shield mr-2"></i>Admin</button></a>
+                <a th:href="@{/userLogin}"><button class="btn btn-success"><i class="fas fa-user mr-2"></i>User</button></a>
+                <a th:href="@{/searchMatch}"><button class="btn btn-warning"><i class="fas fa-search mr-2"></i>Search Match</button></a>
+            </div>
+            <div class="text-container">
+                <h1>Your Ticket to Every Boundary</h1>
+                <p>Welcome to our online IPL ticket booking 
+                    application Choose your option to proceed
+                    with your reservation and embark on your 
+                    next booking with ease and comfort
+                </p>
+            </div>
+        </div>
+       <div class="footer" style="padding:2px">
+            <p> © 2024 IPL Ticket Booking All Rights Reserved</p>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

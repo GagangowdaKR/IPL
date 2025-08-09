@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Match</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+      body {
+        background: radial-gradient(
+            50% 123.47% at 50% 50%,
+            #00ff94 0%,
+            #720059 100%
+          ),
+          linear-gradient(121.28deg, #669600 0%, #ff0000 100%),
+          linear-gradient(360deg, #0029ff 0%, #8fff00 100%),
+          radial-gradient(100% 164.72% at 100% 100%, #6100ff 0%, #00ff57 100%),
+          radial-gradient(100% 148.07% at 0% 0%, #fff500 0%, #51d500 100%);
+        background-blend-mode: screen, color-dodge, overlay, difference, normal;
+      }
+      .card {
+        box-shadow: 0 0 15px 0 rgba(255, 255, 255, 0.649);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="vh-100">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-xl-9">
+            <h1
+              class="text-black mb-4"
+              style="margin-top: 12px; margin-left: 35%"
+            >
+              Update Match
+            </h1>
+            <div class="card" style="border-radius: 15px">
+              <div class="card-body">
+                <div
+                  class="row d-flex justify-content-center align-items-center"
+                >
+                  <div class="col-md-6 col-md-offset-3">
+                    <form id="edit-match-form">
+                      <div class="form-group">
+                        <label for="matchId">Match ID</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="matchId"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="matchName">Match Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="matchName"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="location">Location</label>
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-default dropdown-toggle"
+                            type="button"
+                            id="locationDropdown"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                          >
+                            Select Location
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="locationDropdown"
+                          >
+                            <a class="dropdown-item locationStation" href="#"
+                              >Chennai</a
+                            >
+                            <a class="dropdown-item locationStation" href="#"
+                              >Bangalore</a
+                            >
+                            <a class="dropdown-item locationStation" href="#"
+                              >Delhi</a
+                            >
+                            <a class="dropdown-item locationStation" href="#"
+                              >Mumbai</a
+                            >
+                            <a class="dropdown-item locationStation" href="#"
+                              >Kerala</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="date">Date(DD/MM/YY)</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="date"
+                          required
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="time">Time (HH:MM)</label>
+                        <input
+                          type="time"
+                          class="form-control"
+                          id="time"
+                          name="time"
+                          required
+                        />
+                      </div>
+                      <br />
+                      <button type="submit" class="btn btn-primary btn-block">
+                        Update Match
+                      </button>
+                    </form>
+                    <br />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const matchIdInput = document.getElementById("matchId");
+        const form = document.getElementById("edit-match-form");
+
+        let selectedLocation = "";
+
+        $(".locationStation").click(function (event) {
+          event.preventDefault();
+          selectedLocation = $(this).text();
+          $("#locationDropdown").text(selectedLocation);
+        });
+
+        function fetchMatchDetails(matchId) {
+          fetch(`/api/search-match-by-id?matchId=${matchId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+
+              if (data) {
+                const match = data;
+                document.getElementById("matchName").value = match.matchName;
+                document.getElementById("matchId").value = match.matchNumber;
+                $("#locationDropdown").text(match.location);
+                document.getElementById("date").value = match.date
+                  .split("-")
+                  .reverse()
+                  .join("-");
+                document.getElementById("time").value = match.time
+                  ? match.time
+                  : "00:00";
+              } else {
+                alert("Match not found");
+              }
+            })
+            .catch((error) =>
+              console.error("Error fetching match details:", error)
+            );
+        }
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const matchId = matchIdInput.value;
+          const matchName = document.getElementById("matchName").value;
+          const location = selectedLocation;
+          const date = document
+            .getElementById("date")
+            .value.split("-")
+            .reverse()
+            .join("-");
+          const time = document.getElementById("time").value;
+
+          if (!location) {
+            alert("Please select the location to proceed");
+            return;
+          }
+
+          const queryParams = new URLSearchParams({
+            matchNumber: matchId,
+            matchName: matchName,
+            location: location,
+            date: date,
+            time: time,
+          });
+
+          fetch(`/api/edit-match?${queryParams.toString()}`, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+              if (data.status == 200) {
+                alert("Match details updated successfully");
+                window.location.href = "adminDashBoard";
+              } else {
+                alert("Error updating match details");
+              }
+            })
+            .catch((error) =>
+              console.error("Error updating match details:", error)
+            );
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const matchId = urlParams.get("matchId");
+        if (matchId) {
+          matchIdInput.value = matchId;
+          fetchMatchDetails(matchId);
+        }
+      });
+    </script>
+  </body>
+</html>

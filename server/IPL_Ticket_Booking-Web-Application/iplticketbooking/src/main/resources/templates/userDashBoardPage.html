@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem("aadhar");
+      window.location.href = "/";
+    }
+  </script>
+
+  <style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    .gradient-advanced {
+      background: radial-gradient(50% 123.47% at 50% 50%, #00ff94 0%, #720059 100%),
+      linear-gradient(121.28deg, #669600 0%, #ff0000 100%),
+      linear-gradient(360deg, #0029ff 0%, #8fff00 100%),
+      radial-gradient(100% 164.72% at 100% 100%, #6100ff 0%, #00ff57 100%),
+      radial-gradient(100% 148.07% at 0% 0%, #fff500 0%, #51d500 100%);
+    background-blend-mode: screen, color-dodge, overlay, difference, normal;
+    min-height: 100%;
+        padding-bottom: 50px;
+    }
+    .btn {
+        font-size: 25px;
+        margin-right: 15px;
+    }
+    .action-buttons {
+        margin-top: 30px;
+        margin-left: 15px;
+    }
+    .logout-btn {
+        margin-top: 20px;
+    }
+    h1 {
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        margin-left: 15px;
+    }
+    .full-width {
+        width: 100%;
+        padding-right: 15px;
+    }
+    .left-align {
+        margin-right: 20px;
+    }
+  </style>
+  </style>
+</head>
+<body>
+<div class="gradient-advanced">
+  <div class="container">
+    <div class="pull-right">
+      <br />
+      <button type="button" class="btn btn-primary" onclick="logout()">
+        Logout
+      </button>
+    </div>
+
+    <br />
+    <h1 class="mt-4" style="color: black">
+      Good Morning, <span id="user-name"></span
+    ><span style="color: black"> (User Dashboard)</span>
+    </h1>
+    <div class="mt-4">
+      <br />
+      <br />
+      <a th:href="@{searchMatch}">
+        <button type="button" class="btn btn-primary">Search Match</button>
+      </a>
+      <a href="cancelTicket">
+        <button type="button" class="btn btn-primary">Cancel Ticket</button>
+      </a>
+      <span class="view-booked-ticket-placeholder"></span>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div id="booked-tickets-container"></div>
+  </div>
+</div>
+<script>
+  function loadViewBookedTicketCache() {
+    const ticketNumber = localStorage.getItem("match_number");
+    const placeholder = document.querySelector(
+      ".view-booked-ticket-placeholder"
+    );
+    if (ticketNumber) {
+      placeholder.innerHTML = `
+        <a href="bookTicket?match_number=${ticketNumber}">
+          <button type="button" class="btn btn-primary">
+            View Booked Ticket
+          </button>
+        </a>
+      `;
+    }
+  }
+  function createBookedTicketElement(
+    matchId,
+    ticketNumber,
+    audience_name,
+    match_name,
+    location,
+    date,
+    time,
+    seat_number,
+    all_audience
+  ) {
+    const ticketDetails = document.createElement("div");
+    ticketDetails.className = "col-md-12";
+    ticketDetails.style.border = "1px solid black";
+    ticketDetails.style.borderRadius = "5px";
+    ticketDetails.style.padding = "15px";
+    ticketDetails.style.marginTop = "20px";
+
+    let audienceDropdownItems = all_audience
+      .map(
+        (audience) => `
+        <li>
+          <a class="dropdown-item" href="#">
+            ${audience}
+          </a>
+        </li>
+      `
+      )
+      .join("");
+    ticketDetails.innerHTML = `
+      <h3>Booked Ticket <small class="text-muted">Ticket Number: ${ticketNumber}</small></h3>
+      <div class="row">
+        <div class="col-xs-6">
+          <small>Audience Name:</small>
+          <p class="lead"><strong>${audience_name}</strong></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <small>Match:</small>
+          <p class="lead"><strong>${match_name}</strong></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <small>Location:</small>
+          <p><strong>${location}</strong></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+          <small>Date:</small>
+          <p>${date}</p>
+        </div>
+        <div class="col-xs-3">
+          <small>Time:</small>
+          <p><strong>${time}</strong></p>
+        </div>
+        <div class="col-xs-3">
+          <small>Seat:</small>
+          <p class="text-primary" style="font-size: 18px"><strong>${seat_number}</strong></p>
+        </div>
+        <div class="col-xs-3">
+          <small>Ticket Number:</small>
+          <p class="text-success" style="font-size: 18px"><strong>${ticketNumber}</strong></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          <a href="viewBookedDetail?ticketNumber=${ticketNumber}">
+            <button type="button" class="btn btn-primary">
+              View Booked Ticket
+            </button>
+          </a>
+          <a href="bookTicket?match_number=${matchId}">
+            <button type="button" class="btn btn-default">
+              Book More
+            </button>
+          </a>
+        </div>
+        <div class="col-xs-6 text-right">
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="audienceDropdown_${ticketNumber}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ticket Booked by: ${audience_name}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="audienceDropdown_${ticketNumber}">
+              ${audienceDropdownItems}
+            </ul>
+          </div>
+        </div>
+      </div>
+    `;
+
+    return ticketDetails;
+  }
+
+  function displayBookedTicket(
+    matchId,
+    ticketNumber,
+    audience_name,
+    match_name,
+    location,
+    date,
+    time,
+    seat_number,
+    all_audience
+  ) {
+    const container = document.getElementById("booked-tickets-container");
+    const ticketElement = createBookedTicketElement(
+      matchId,
+      ticketNumber,
+      audience_name,
+      match_name,
+      location,
+      date,
+      time,
+      seat_number,
+      all_audience
+    );
+    container.appendChild(ticketElement);
+  }
+
+  function generateTicketNumber() {
+    return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+  }
+
+  const EMAIL = "r.rahul.developer@gmail.com";
+
+  async function fetchUserData(aadhar) {
+    const endpoint = `/api/get-user-by-aadhar?aadhar=${aadhar}`;
+    const response = await fetch(endpoint).then((response) =>
+      response.json()
+    );
+    return response;
+  }
+
+  async function fetchTicketData(email) {
+    const endpoint = `/api/get-all-user-ticket?email=${email}`;
+    const response = await fetch(endpoint).then((response) =>
+      response.json()
+    );
+    return response;
+  }
+
+  async function fetchMatchData(matchId) {
+    const endpoint = `/api/all-matches`;
+    const response = await fetch(endpoint).then((response) =>
+      response.json()
+    );
+    for (const match of response) {
+      if (match.matchNumber == matchId) return match;
+    }
+    return -1;
+  }
+
+  async function fetchUserTicketData(ticketNumber) {
+    const endpoint = `api/get-user-ticket?ticket_number=${ticketNumber}`;
+    const response = await fetch(endpoint).then((response) =>
+      response.json()
+    );
+    return response;
+  }
+
+  async function updateBookedTicketsDisplay() {
+    const usernameComponent = document.getElementById("user-name");
+
+    const aadhar = localStorage.getItem("aadhar");
+
+    const user = await fetchUserData(aadhar);
+    usernameComponent.innerText = user.username;
+
+    const tickets = await fetchTicketData(user.email);
+
+    console.log(tickets);
+
+    tickets.forEach(async (ticket) => {
+      const ticketNumber = ticket.ticketNumber;
+      const matchId = ticket.matchId;
+      const match = await fetchMatchData(matchId);
+      const users = await fetchUserTicketData(ticketNumber);
+
+      console.log(matchId);
+
+      const adminUser = users[0]?.name;
+      const matchName = match.matchName;
+      console.log(matchName);
+      const location = match.location;
+      const date = match.date;
+      const time = match.time;
+      const seats = [];
+      users.forEach((user) => seats.push(user.seatNumber));
+      const usernames = [];
+      users.forEach((user) => usernames.push(user.name));
+      displayBookedTicket(
+        matchId,
+        ticketNumber,
+        adminUser,
+        matchName,
+        location,
+        date,
+        time,
+        seats,
+        usernames
+      );
+    });
+
+    const container = document.getElementById("booked-tickets-container");
+    container.innerHTML = ""; // Clear previous content
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    updateBookedTicketsDisplay();
+    loadViewBookedTicketCache();
+  });
+</script>
+</body>
+</html>

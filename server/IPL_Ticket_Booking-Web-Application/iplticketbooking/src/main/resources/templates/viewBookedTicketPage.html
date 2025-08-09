@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Booked Tickets</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+      body {
+        background-color: #b7b597;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="border border-dark p-4">
+            <div class="text-center mb-4">
+              <button class="btn btn-primary">Tickets Booked</button>
+              <a href="adminDashBoard">
+                <button class="btn btn-default">Go Back</button>
+              </a>
+            </div>
+            <div class="row justify-content-center">
+              <div
+                class="col-sm-12 col-md-5"
+                id="show-ticketNumber-section"
+              ></div>
+              <div class="col-sm-12 col-md-5" id="show-ticket-section"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title text-center mb-4">
+                Ticket Booking Information
+              </h5>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="d-flex justify-content-between mb-4">
+                    <button class="btn btn-primary">
+                      Total number of tickets booked
+                    </button>
+                    <button class="btn btn-success">60/80</button>
+                  </div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Ticket Booked by Class</th>
+                        <th>Number of Tickets Booked</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Vivo Box</td>
+                        <td>25</td>
+                      </tr>
+                      <tr>
+                        <td>Front Stand</td>
+                        <td>18</td>
+                      </tr>
+                      <tr>
+                        <td>Back Stand</td>
+                        <td>12</td>
+                      </tr>
+                      <tr>
+                        <td>VIP</td>
+                        <td>5</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex justify-content-between mb-4">
+                    <button class="btn btn-primary">
+                      Number of Seats Available
+                    </button>
+                    <button class="btn btn-success">20/80</button>
+                  </div>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Ticket Not Booked by Class</th>
+                        <th>Number of Tickets Not Booked</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Vivo Box</td>
+                        <td>15</td>
+                      </tr>
+                      <tr>
+                        <td>Front Stand</td>
+                        <td>2</td>
+                      </tr>
+                      <tr>
+                        <td>Back Stand</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td>VIP</td>
+                        <td>0</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const showTicketSection = document.getElementById("show-ticket-section");
+      const showPnrSection = document.getElementById(
+        "show-ticketNumber-section"
+      );
+
+      function createTicketElement(ticketNumber) {
+        const ticketElement = document.createElement("div");
+        ticketElement.className = "border border-dark p-2 mb-3";
+        ticketElement.innerText = ticketNumber;
+        return ticketElement;
+      }
+
+      function createShowDetailsButton(link) {
+        const showDetailsButton = document.createElement("button");
+        showDetailsButton.className = "btn btn-info mb-3 w-100";
+        showDetailsButton.innerText = "Show Details";
+        showDetailsButton.onclick = function () {
+          window.location.href = link;
+        };
+        return showDetailsButton;
+      }
+
+      function appendTicket(ticketNumber) {
+        const ticketElement = createTicketElement(ticketNumber);
+        const showDetailsElement = createShowDetailsButton(
+          "/viewBookedDetail?ticketNumber=" + ticketNumber
+        );
+        showTicketSection.appendChild(showDetailsElement);
+        showPnrSection.appendChild(ticketElement);
+      }
+
+      $(document).ready(function () {
+        $.ajax({
+          url: "/api/all-ticket",
+          method: "GET",
+          success: function (data) {
+            data.forEach((item) => {
+              appendTicket(item.ticketNumber);
+            });
+          },
+          error: function (err) {
+            console.error("Error fetching tickets:", err);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

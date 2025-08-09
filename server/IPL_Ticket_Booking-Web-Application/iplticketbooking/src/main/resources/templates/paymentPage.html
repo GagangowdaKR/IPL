@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      body {
+        background-color: #f9c9aa;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="padding-top: 5px">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-9 col-lg-7 col-xl-5">
+            <div class="card">
+              <img
+                src="/payment.avif"
+                class="card-img-top"
+                alt="Payment Image"
+              />
+              <div class="card-body">
+                <center>
+                  <br />
+                  <br />
+                  <h1>Proceed to Payment</h1>
+                  <br />
+                </center>
+                <ul>
+                  <li>Number of audience = <span id="number-audience"></span></li>
+                  <li>Selected Classes = <span id="selected-classes"></span></li>
+                  <li>Total Price = <span id="price"></span></li>
+                </ul>
+                <br />
+                <br />
+
+                <div class="form-group">
+                  <label for="price">Total Price:</label>
+                  <input type="text" class="form-control" id="input-price" />
+                </div>
+
+                <div class="form-group">
+                  <label for="pay">Mode of Payment</label>
+                  <div
+                    class="dropdown"
+                    style="
+                      border: 2px solid rgba(0, 149, 255, 0.649);
+                      border-radius: 10px;
+                    "
+                  >
+                    <button
+                      class="btn btn-default dropdown-toggle"
+                      type="button"
+                      id="pay"
+                      data-toggle="dropdown"
+                      style="
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                      "
+                    >
+                      Mode of Payment <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" style="width: 100%">
+                      <li onclick="setMode('UPI')"><a>UPI</a></li>
+                      <li onclick="setMode('Net Banking')"><a>Net Banking</a></li>
+                    </ul>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary btn-block" onclick="handleSubmit()">
+                  Pay Now
+                </button>
+
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const _VB_COST = 3000;
+      const _FS_COST = 2000;
+      const _BS_COST = 1000;
+      const _VP_COST = 500;
+
+      const searchParams = new URLSearchParams(window.location.search);
+      const email = searchParams.get("email");
+      const mobileNumber = searchParams.get("audienceMobileNumber");
+      console.log(mobileNumber);
+      const audienceDetails = JSON.parse(
+        decodeURIComponent(searchParams.get("audienceDetails"))
+      );
+      const bookedSeatsByClass = JSON.parse(
+        decodeURIComponent(searchParams.get("bookedSeatsByClass"))
+      );
+
+      const numAudienceComponent = document.getElementById("number-audience");
+      const selectedClassesComponent =
+        document.getElementById("selected-classes");
+      const priceComponent = document.getElementById("price");
+
+      let totalAudience = 0;
+      let selectedClasses = [];
+      let price = 0;
+
+      Object.entries(bookedSeatsByClass).forEach(([className, seats]) => {
+        if (seats.length > 0) {
+          totalAudience += seats.length;
+          selectedClasses.push(className);
+          if (className === "VB") price += _VB_COST * seats.length;
+          else if (className === "FS") price += _FS_COST * seats.length;
+          else if (className === "BS") price += _BS_COST * seats.length;
+          else if (className === "VP") price += _VP_COST * seats.length;
+        }
+      });
+
+      numAudienceComponent.textContent = totalAudience;
+      selectedClassesComponent.textContent = selectedClasses.join(", ");
+      priceComponent.textContent = price;
+
+      document.getElementById("input-price").value = price;
+
+      let mode = "";
+      function setMode(modeValue) {
+        const payComponent = document.getElementById("pay");
+        payComponent.textContent = modeValue;
+        mode = modeValue;
+      }
+
+      const matchId = searchParams.get("matchId");
+
+      async function handleSubmit(e) {
+        if(!mode){
+          alert("Please select the mode of Payment");
+          return;
+        }
+        const enteredPriceComponent = document.getElementById("input-price");
+        const enteredPrice = enteredPriceComponent.value;
+        console.log(enteredPrice);
+        if (parseInt(enteredPrice) !== price) {
+          alert("Entered price is not correct");
+          return;
+        }
+        const ticketNumber = await createTicket();
+        alert("Ticket Created!");
+        window.location.href = `viewBookedDetail?ticketNumber=${ticketNumber}`;
+      }
+
+      function generatePNR() {
+        return Math.floor(1000000000 + Math.random() * 9000000000).toString();
+      }
+
+      async function createTicket() {
+        const ticketNumber = generatePNR();
+        console.log(email);
+        const createTicketResponse = await fetch(
+          `/api/create-ticket?ticketNumber=${ticketNumber}&matchId=${matchId}&method=${mode}&amount=${price}&email=${email}&audienceMobileNumber=${mobileNumber}`
+        );
+        console.log(audienceDetails);
+
+        for (let i = 0; i < audienceDetails.length; i++) {
+          console.log(i);
+          const audience = audienceDetails[i];
+          const name = audience.audienceName;
+          const age = audience.age;
+          const gender = audience.gender;
+          const classType = audience.classType;
+          const seats = bookedSeatsByClass[classType];
+          const seat = seats[i % seats.length]; // Cycle through seats if more audiences than seats
+          const className = seat.substring(0, seat.length - 1);
+          let preference = "";
+          if (className === "FZ" ) 
+            preference = "Front Zone";
+          else if( className === "SZ") 
+            preference = "Student Zone";
+          else if (className === "AZ" )
+            preference = "Audience Zone";
+          else if(className === "CZ")
+           preference = "Celebrity Zone";
+
+          const addAudienceResponse = await fetch(
+            `/api/add-user?ticketNumber=${ticketNumber}&name=${name}&age=${age}&gender=${gender}&preference=${preference}&className=${className}&price=${price}&seatNumber=${seat}`
+          );
+          console.log(addAudienceResponse);
+        }
+        return ticketNumber;
+      }
+      console.log("Total price:", price);
+    </script>
+  </body>
+</html>
